@@ -14,7 +14,7 @@ If you are still proceeding to read this, note that the line numbers mentioned h
 
 ---
 
-## Part 1: The Data (Lines 14–29)
+## Part 1: The Data (Lines 14–20)
 
 ```
 docs = [l.strip() for l in open('input.txt')...]
@@ -40,7 +40,7 @@ So the name `"cat"` might become `[26, 2, 0, 19, 26]` — BOS, c, a, t, BOS.
 
 ---
 
-## Part 2: The Autograd Engine — The `Value` Class (Lines 31–65)
+## Part 2: The Autograd Engine — The `Value` Class (Lines 30-72)
 
 This is the **heart** of the entire file. It's the engine that lets the AI **learn**.
 
@@ -97,7 +97,7 @@ Think of it like **blame assignment**: if your cake tastes bad (high loss), back
 
 ---
 
-## Part 3: Model Parameters (Lines 67–80)
+## Part 3: Model Parameters (Lines 74-90)
 
 ```python
 n_embd = 16      # each token is represented by 16 numbers
@@ -118,7 +118,7 @@ Total: **~11,000 numbers** that start random and get tuned by training.
 
 ---
 
-## Part 4: The Model Architecture (Lines 82–126)
+## Part 4: The Model Architecture (Lines 94–144)
 
 This is the actual GPT. It's a **function**: give it a letter and its position → it predicts what the next letter should be.
 
@@ -150,7 +150,7 @@ This **normalizes** the numbers so they don't explode to billions or shrink to n
 
 Here's what happens step by step when the model processes one letter:
 
-#### Step 1: Embeddings (Lines 99–102)
+#### Step 1: Embeddings (Lines 109-112)
 ```python
 tok_emb = state_dict['wte'][token_id]  # look up the letter's representation
 pos_emb = state_dict['wpe'][pos_id]    # look up the position's representation
@@ -159,7 +159,7 @@ x = [t + p for t, p in zip(tok_emb, pos_emb)]  # combine them
 
 The letter "a" in position 3 gets a different representation than "a" in position 7, because position matters! "ca**t**" and "ta**c**" have the same letters but different meanings.
 
-#### Step 2: Multi-Head Attention (Lines 106–120)
+#### Step 2: Multi-Head Attention
 
 This is the most famous part of GPT. **Attention** answers the question: *"When predicting the next letter, which previous letters should I pay attention to?"*
 
@@ -179,7 +179,7 @@ $$\text{output} = \sum_t \text{weight}_t \times V_t$$
 
 **Multi-head** means we do this 4 times in parallel (with different Q, K, V weights), each looking at a different 4-dimensional slice. It's like having 4 different experts, each paying attention to different patterns (one might focus on vowels, another on consonant clusters, etc.).
 
-#### Step 3: MLP Block (Lines 122–126)
+#### Step 3: MLP Block
 
 ```python
 x = linear(x, mlp_fc1)   # expand: 16 → 64 dimensions
@@ -202,7 +202,7 @@ Finally, the 16-dimensional representation is projected to **27 scores** (one pe
 
 ---
 
-## Part 5: Training Loop (Lines 129–159)
+## Part 5: Training Loop (Lines 152-184)
 
 This is where the AI **learns** by repeatedly:
 
@@ -244,7 +244,7 @@ parameter -= lr · m̂ / (√v̂ + ε)                  # update step
 
 ---
 
-## Part 6: Inference — Generate New Names (Lines 162–175)
+## Part 6: Inference — Generate New Names (Lines 186-200)
 
 After training, the model can **hallucinate** new names:
 
