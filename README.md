@@ -6,7 +6,11 @@ He originally described it as:
 
 > "Train and inference GPT in 200 lines of pure, dependency-free Python. This is the *full* algorithmic content of what is needed. Everything else is just for efficiency. I cannot simplify this any further. The way it works is that the full LLM architecture and loss function is stripped entirely to the most atomic individual mathematical operations that make it up (+, *, **, log, exp), and then a tiny scalar-valued autograd engine (micrograd) calculates gradients. Adam for optim."
 
-All the content in this repo was generated with the help of LLMs only. I am a complete beginner myself and I am trying to dumb it down as much as possible to my level of understanding (which is just high school math basically). The contents in the README were the first attempt by Claude Opus to explain Karpathy's code (cloned as microgpt.py in this repo). But I found even this hard to understand. So I have worked with Claude further to create a detailed line by line explanation of the code in microgpt_explained.py. So you can just head there to read it instead.
+All the content in this repo was generated with the help of LLMs only. I am a complete beginner myself and I am trying to dumb it down as much as possible to my level of understanding (which is just high school math basically). 
+
+The contents in the README were the first attempt by Claude Opus to explain Karpathy's code (cloned as [microgpt.py](https://github.com/SuryaSankar/understand_microgpt/blob/main/microgpt.py) in this repo). But I found even this hard to understand. So I have worked with Claude further to create a detailed line by line explanation of the code in [microgpt_explained.py](https://github.com/SuryaSankar/understand_microgpt/blob/main/microgpt_explained.py). So you can just head there to read it instead of this README.
+
+If you are still proceeding to read this, note that the line numbers mentioned here refer to the line numbers in Karpathy's original microgpt.py
 
 ---
 
